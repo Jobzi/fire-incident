@@ -8,5 +8,5 @@ class GetIncidentsUseCase:
 
     def __call__(self) -> GetIncidentsResponse:
         incidents = self.storage_service.read()
-        sorted_incidents = sorted(incidents, key=lambda x: x.id)
+        sorted_incidents = incidents[::-1]
         return GetIncidentsResponse(incidents=sorted_incidents)
