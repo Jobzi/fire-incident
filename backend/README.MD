@@ -48,3 +48,21 @@ Run the application:
 ```bash
 make run
 ```
+
+## Stack
+
+- Python
+- FastAPI
+- Pydantic
+- Uvicorn
+
+## TO DO
+
+- [ ] implement pagination for incident list
+- [ ] add user authentication and authorization
+- [ ] create a frontend for the incident reporting system
+
+## IA
+
+- [x] Storage and serve images
+- [x] Config Vite Proxy server
