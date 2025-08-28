@@ -10,7 +10,7 @@ def read_root() -> dict[str, str]:
     return {"message": "Hello World"}
 
 
-@app.post("/api/incidents")
+@app.post("/api/incidents", response_model=CreateIncidentResponse)
 def create_incident(
     req: CreateIncidentRequest,
     use_case: CreateIncidentUseCase = Depends(create_incident_use_case)
