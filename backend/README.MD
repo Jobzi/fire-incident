@@ -1,4 +1,5 @@
 ## Backend
+![image](assets/2025-08-28_10-43.png)
 
 The backend is built with Python and FastAPI. It handles all the business logic and data storage for the fire incident reporting system.
 
