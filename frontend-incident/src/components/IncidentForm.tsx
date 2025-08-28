@@ -5,6 +5,7 @@ export default function IncidentForm({ onSuccess }: { onSuccess: () => void }) {
   const [incidentType, setIncidentType] = useState("fire");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
+  const [image, setImage] = useState<File | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -13,6 +14,7 @@ export default function IncidentForm({ onSuccess }: { onSuccess: () => void }) {
     formData.append("incident_type", incidentType);
     if (description) formData.append("description", description);
     if (location) formData.append("location", location);
+    if (image) formData.append("image", image);
 
     await fetch("/api/incidents", {
       method: "POST",
@@ -68,6 +70,10 @@ export default function IncidentForm({ onSuccess }: { onSuccess: () => void }) {
           value={location}
           onChange={(e) => setLocation(e.target.value)}
         />
+      </div>
+      <div>
+        <label htmlFor="image">Image:</label>
+        <input id="image" type="file" onChange={(e) => setImage(e.target.files?.[0] || null)} />
       </div>
       <button type="submit">Submit</button>
     </form>
