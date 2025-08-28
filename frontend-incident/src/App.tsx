@@ -15,7 +15,6 @@ export default function App() {
     fetchIncidents();
   }, []);
 
-  console.log(incidents);
   return (
     <div style={{ padding: "20px", fontFamily: "sans-serif" }}>
       <h1>🔥 Fire Incident Mini-Portal</h1>
