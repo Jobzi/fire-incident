@@ -1,6 +1,7 @@
 from typing import Optional
 from fastapi import Depends, FastAPI, Form, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from .cases import (
     CreateIncidentRequest,
@@ -52,3 +53,5 @@ def get_incidents(
     use_case: GetIncidentsUseCase = Depends(get_incidents_use_case)
 ) -> GetIncidentsResponse:
     return use_case()
+
+app.mount("/uploads", StaticFiles(directory="src/storage/images"), name="uploads")

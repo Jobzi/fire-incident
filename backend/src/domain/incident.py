@@ -9,3 +9,4 @@ class Incident(pydantic.BaseModel):
     description: str | None
     location: str | None
     incident_type: IncidentType
+    image: str | None = None

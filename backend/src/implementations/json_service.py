@@ -1,10 +1,14 @@
 import json
 import os
+from re import I
 
 from ..domain import Incident, StorageService
 
 UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "src", "storage", "incident.json")
 os.makedirs(os.path.dirname(UPLOAD_FOLDER), exist_ok=True)
+
+IMAGE_FOLDER = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "src", "storage", "images")
+os.makedirs(IMAGE_FOLDER, exist_ok=True)
 
 class JSONStorageService(StorageService):
     def __init__(self) -> None:
@@ -18,7 +22,8 @@ class JSONStorageService(StorageService):
                 title=item["title"],
                 description=item.get("description"),
                 incident_type=item["incident_type"],
-                location=item.get("location")
+                location=item.get("location"),
+                image=item.get("image")
             ) for item in json.load(f)]
 
     def save(self, data: Incident) -> None:
@@ -28,9 +33,7 @@ class JSONStorageService(StorageService):
             json.dump([item.model_dump() for item in local_data], f, ensure_ascii=False, indent=2)
 
     def save_image(self, image_data: bytes, filename: str) -> str:
-        image_folder = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "src", "storage", "images")
-        os.makedirs(image_folder, exist_ok=True)
-        image_path = os.path.join(image_folder, filename)
+        image_path = os.path.join(IMAGE_FOLDER, filename)
         with open(image_path, "wb") as f:
             f.write(image_data)
         return image_path
