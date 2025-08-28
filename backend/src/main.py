@@ -1,9 +1,18 @@
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 
-# Crear la aplicación
+from .cases import CreateIncidentRequest, CreateIncidentResponse, CreateIncidentUseCase
+from .dependencies import create_incident_use_case
+
 app = FastAPI()
 
-# Ruta principal
 @app.get("/")
-def read_root():
+def read_root() -> dict[str, str]:
     return {"message": "Hello World"}
+
+
+@app.post("/api/incidents")
+def create_incident(
+    req: CreateIncidentRequest,
+    use_case: CreateIncidentUseCase = Depends(create_incident_use_case)
+) -> CreateIncidentResponse:
+    return use_case(req)
