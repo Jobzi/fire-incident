@@ -3,7 +3,7 @@ import os
 
 from ..domain.services import StorageService
 
-UPLOAD_FOLDER = "backend/src/storage/incident.json"
+UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "src", "storage", "incident.json")
 os.makedirs(os.path.dirname(UPLOAD_FOLDER), exist_ok=True)
 
 class JSONStorageService(StorageService):
