@@ -1,6 +1,9 @@
 [
   {
     "id": "1",
-    "description": "Fire incident in building A"
+    "title": "Fire incident in building A",
+    "description": null,
+    "location": null,
+    "incident_type": "fire"
   }
 ]

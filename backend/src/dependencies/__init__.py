@@ -1,1 +1,1 @@
-from .dependencies_factory import create_incident_use_case
+from .dependencies_factory import create_incident_use_case, get_incidents_use_case

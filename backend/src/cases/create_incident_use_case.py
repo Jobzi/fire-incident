@@ -2,7 +2,7 @@ import uuid
 
 from ._request import CreateIncidentRequest
 from ._response import CreateIncidentResponse
-from ..domain.services import StorageService
+from ..domain import StorageService, Incident
 
 
 class CreateIncidentUseCase:
@@ -11,5 +11,5 @@ class CreateIncidentUseCase:
 
     def __call__(self, req: CreateIncidentRequest) -> CreateIncidentResponse:
         incident_id = str(uuid.uuid4())
-        self.storage_service.save({"id": incident_id, **req.model_dump()})
+        self.storage_service.save(Incident(id=incident_id, description=req.description, incident_type=req.incident_type, location=req.location, title=req.title))
         return CreateIncidentResponse(id=incident_id, message=req.description or "No description provided")

@@ -1,7 +1,13 @@
 from fastapi import Depends, FastAPI
 
-from .cases import CreateIncidentRequest, CreateIncidentResponse, CreateIncidentUseCase
-from .dependencies import create_incident_use_case
+from .cases import (
+    CreateIncidentRequest,
+    CreateIncidentResponse,
+    CreateIncidentUseCase,
+    GetIncidentsResponse,
+    GetIncidentsUseCase
+)
+from .dependencies import create_incident_use_case, get_incidents_use_case
 
 app = FastAPI()
 
@@ -16,3 +22,9 @@ def create_incident(
     use_case: CreateIncidentUseCase = Depends(create_incident_use_case)
 ) -> CreateIncidentResponse:
     return use_case(req)
+
+@app.get("/api/incidents", response_model=GetIncidentsResponse)
+def get_incidents(
+    use_case: GetIncidentsUseCase = Depends(get_incidents_use_case)
+) -> GetIncidentsResponse:
+    return use_case()
