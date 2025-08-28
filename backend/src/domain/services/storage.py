@@ -11,3 +11,7 @@ class StorageService(abc.ABC):
     @abc.abstractmethod
     def read(self) -> list[Incident]:
         pass
+
+    @abc.abstractmethod
+    def save_image(self, image_data: bytes, filename: str) -> str:
+        pass

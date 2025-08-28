@@ -26,4 +26,11 @@ class JSONStorageService(StorageService):
         local_data.append(data)
         with open(self.file_path, "w", encoding="utf-8") as f:
             json.dump([item.model_dump() for item in local_data], f, ensure_ascii=False, indent=2)
-    
+
+    def save_image(self, image_data: bytes, filename: str) -> str:
+        image_folder = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "src", "storage", "images")
+        os.makedirs(image_folder, exist_ok=True)
+        image_path = os.path.join(image_folder, filename)
+        with open(image_path, "wb") as f:
+            f.write(image_data)
+        return image_path

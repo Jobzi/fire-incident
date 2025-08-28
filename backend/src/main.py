@@ -1,4 +1,5 @@
-from fastapi import Depends, FastAPI
+from typing import Optional
+from fastapi import Depends, FastAPI, Form, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
 from .cases import (
@@ -8,6 +9,7 @@ from .cases import (
     GetIncidentsResponse,
     GetIncidentsUseCase
 )
+from .domain import IncidentType
 from .dependencies import create_incident_use_case, get_incidents_use_case
 
 app = FastAPI()
@@ -27,9 +29,22 @@ def read_root() -> dict[str, str]:
 
 @app.post("/api/incidents", response_model=CreateIncidentResponse)
 def create_incident(
-    req: CreateIncidentRequest = Depends(),
+    title: str = Form(...),
+    description: str = Form(None),
+    location: str = Form(None),
+    incident_type: IncidentType = Form(...),
+    image: Optional[UploadFile] = File(None),
     use_case: CreateIncidentUseCase = Depends(create_incident_use_case)
 ) -> CreateIncidentResponse:
+    if image:
+        image_data = image.file.read()
+    req = CreateIncidentRequest(
+        title=title,
+        description=description,
+        location=location,
+        incident_type=incident_type,
+        image=image_data
+    )
     return use_case(req)
 
 @app.get("/api/incidents", response_model=GetIncidentsResponse)
