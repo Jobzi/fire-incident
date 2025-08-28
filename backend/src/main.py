@@ -27,7 +27,7 @@ def read_root() -> dict[str, str]:
 
 @app.post("/api/incidents", response_model=CreateIncidentResponse)
 def create_incident(
-    req: CreateIncidentRequest,
+    req: CreateIncidentRequest = Depends(),
     use_case: CreateIncidentUseCase = Depends(create_incident_use_case)
 ) -> CreateIncidentResponse:
     return use_case(req)
